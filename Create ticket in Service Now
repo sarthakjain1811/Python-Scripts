@@ -1,0 +1,17 @@
+##################Code to create ticket in ServiceNow################################
+
+import pysnow
+
+sn = pysnow.Client(instance="", user="", password="")
+
+incident = sn.resource(api_path='/table/incident')
+
+sn.parameters.display_value = True
+
+sn.parameters.exclude_reference_link = True
+
+new_record = {'short_description': '','description': ''}
+
+result = incident.create(payload=new_record)
+
+print(result)
