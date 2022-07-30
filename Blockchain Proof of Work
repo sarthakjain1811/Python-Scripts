@@ -1,0 +1,41 @@
+import hashlib
+
+class proof_of_work():
+    def hash_generator(self,data):
+        block_hash_code = hashlib.sha256((data).encode()).hexdigest()
+        print("Hashcode for block:", block_hash_code)
+        return block_hash_code
+        
+    def matcher(self,data):
+        if len(data) == 81:
+            return True
+        else:
+            return False
+        
+    def addNounce(self,nounce, blockHash):
+        return nounce + blockHash;
+        
+pow = proof_of_work()
+validBlock_counter= 0
+count=0
+nounce = ""
+Hash_final =""
+sender_data = "Sarthak Jain"
+reciever_data = "Anuj"
+transaction = "Send 100 Bitcoin"
+
+data = sender_data + reciever_data + transaction
+hashcode = pow.hash_generator(data)
+while validBlock_counter == 0:
+    count = count+1
+    nounce = nounce + 'x';
+    Hash_final = pow.addNounce(nounce, hashcode);
+    validation = pow.matcher(Hash_final)
+    if validation == True:
+        validBlock_counter = 1
+    
+print("No of iteration required :",count)
+
+
+        
+
